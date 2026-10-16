@@ -1,98 +1,566 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Defense Brief - Live Dashboard</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap");
-body { font-family: "Assistant", sans-serif; background-color: #0B0F17; color: #E2E8F0; }
-.glass-card { background: rgba(17, 24, 39, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-.drawer { transform: translateX(100%); transition: transform 0.3s ease-in-out; }
-.drawer.open { transform: translateX(0); }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defense Brief — Executive Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #121824;
+            --bg-card: #182030;
+            --accent-green: #00e676;
+            --accent-blue: #00b0ff;
+            --accent-amber: #ffab00;
+            --accent-red: #ff5252;
+            --text-primary: #f0f4f8;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: #26334d;
+            --card-hover: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Heebo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 70px;
+        }
+
+        /* Top Header */
+        header {
+            background-color: rgba(18, 24, 36, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #00b0ff, #00e676);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #000;
+            font-size: 1.2rem;
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.3);
+        }
+
+        .brand-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 230, 118, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        /* Banner Status */
+        .status-banner {
+            background: var(--bg-secondary);
+            border-right: 4px solid var(--accent-blue);
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .status-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .status-info h4 {
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .time-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Section Titles */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 28px 0 16px 0;
+        }
+
+        .section-header h2 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .section-icon {
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+        }
+
+        /* Cards Layout */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 176, 255, 0.4);
+            transform: translateY(-2px);
+            background-color: var(--card-hover);
+        }
+
+        .card-tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .tag-verified { background: rgba(0, 230, 118, 0.15); color: var(--accent-green); }
+        .tag-official { background: rgba(0, 176, 255, 0.15); color: var(--accent-blue); }
+        .tag-report { background: rgba(255, 171, 0, 0.15); color: var(--accent-amber); }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+
+        .card-body {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .card-detail {
+            margin-top: 6px;
+            padding-right: 10px;
+            border-right: 2px solid var(--border-color);
+        }
+
+        .card-detail span {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .source-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .source-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Table */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-top: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+            font-size: 0.85rem;
+        }
+
+        th {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 12px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Bottom Nav (Mobile) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(18, 24, 36, 0.98);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 600;
+            gap: 4px;
+        }
+
+        .nav-item.active {
+            color: var(--accent-blue);
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .bottom-nav {
+                display: none;
+            }
+            body {
+                padding-bottom: 20px;
+            }
+        }
+    </style>
 </head>
-<body class="bg-[#0B0F17] text-slate-200 min-h-screen pb-16">
+<body>
 
-  <!-- Header -->
-  <header class="sticky top-0 z-40 bg-[#0B0F17]/90 backdrop-blur-md border-b border-slate-800 p-4 flex justify-between items-center">
-    <div class="flex items-center gap-3">
-      <button onclick="toggleDrawer()" class="text-slate-300 hover:text-amber-500 text-xl p-1">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-      <div>
-        <h1 class="font-extrabold text-lg text-white tracking-wide">DEFENSE BRIEF</h1>
-        <p class="text-[11px] text-amber-500/90 font-medium">דאשבורד מודיעין אישי</p>
-      </div>
-    </div>
-    <span class="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs rounded-full font-bold animate-pulse">● LIVE</span>
-  </header>
-
-  <!-- Slide-out Drawer -->
-  <div id="drawer-backdrop" onclick="toggleDrawer()" class="fixed inset-0 bg-black/60 z-50 hidden"></div>
-  <aside id="side-drawer" class="drawer fixed top-0 right-0 w-72 h-full bg-[#0F172A] border-l border-slate-800 z-50 p-5 flex flex-col shadow-2xl">
-    <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-3">
-      <h2 class="font-bold text-amber-400 text-lg"><i class="fa-solid fa-layer-group ml-2"></i>קבוצות תוכן</h2>
-      <button onclick="toggleDrawer()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-    </div>
-    <nav class="space-y-3 flex-1">
-      <a href="#section-top5" onclick="toggleDrawer()" class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/50 hover:bg-amber-500/10 hover:text-amber-400 transition text-sm font-semibold"><i class="fa-solid fa-star text-amber-500"></i>5 ההתפתחויות המובילות</a>
-      <a href="#section-israel" onclick="toggleDrawer()" class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/50 hover:bg-amber-500/10 hover:text-amber-400 transition text-sm font-semibold"><i class="fa-solid fa-building-shield text-blue-400"></i>התעשייה הביטחונית בישראל</a>
-      <a href="#section-global" onclick="toggleDrawer()" class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/50 hover:bg-amber-500/10 hover:text-amber-400 transition text-sm font-semibold"><i class="fa-solid fa-globe text-indigo-400"></i>מדינות, מדיניות וכלכלה</a>
-    </nav>
-  </aside>
-
-  <!-- Main Feed Container -->
-  <main class="max-w-xl mx-auto p-4 space-y-6">
-    <section class="glass-card p-4 rounded-2xl border-r-4 border-r-amber-500 shadow-lg">
-      <div class="flex justify-between items-center mb-2">
-        <h2 class="text-sm font-bold text-amber-400"><i class="fa-solid fa-bolt ml-1.5"></i>תדריך יומי מרוכז</h2>
-        <span class="text-[11px] text-slate-400">עדכון חי</span>
-      </div>
-      <p class="text-xs text-slate-300 leading-relaxed">סקירה ממוקדת של תעשיות ביטחוניות, Defense-Tech, גיוסי הון וחוזים גלובליים.</p>
-    </section>
-
-    <!-- Top 5 -->
-    <section id="section-top5" class="space-y-3">
-      <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-star text-amber-500"></i>5 ההתפתחויות החשובות ביותר</h3>
-      
-      <div class="glass-card p-4 rounded-xl space-y-2 border-l-2 border-l-amber-500">
-        <div class="flex justify-between text-[11px] text-slate-400"><span class="text-amber-400 font-bold">Defense-Tech & גיוסים</span><span>היום</span></div>
-        <h4 class="font-bold text-white text-sm">זינוק בגיוסי הון לסטארטאפים ביטחוניים בישראל (כ-3B$)</h4>
-        <p class="text-xs text-slate-300 leading-relaxed">גידול משמעותי בהשקעות בטכנולוגיות דואליות ואוטונומיות בשיתוף מפא"ת.</p>
-        <div class="pt-2 flex justify-between items-center text-xs border-t border-slate-800">
-          <span class="text-slate-400 text-[11px]">מקור: גלובס / Israel Defense</span>
-          <a href="https://www.israeldefense.co.il" target="_blank" class="text-amber-400 hover:underline flex items-center gap-1 text-[11px]">למקור <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i></a>
+    <!-- Header -->
+    <header>
+        <div class="brand">
+            <div class="brand-logo">DB</div>
+            <div>
+                <div class="brand-title">DEFENSE BRIEF</div>
+            </div>
         </div>
-      </div>
-    </section>
+        <div class="live-badge">
+            <div class="pulse-dot"></div>
+            <span>LIVE INTEL</span>
+        </div>
+    </header>
 
-    <!-- Israeli Industry -->
-    <section id="section-israel" class="space-y-3 pt-2">
-      <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-building-shield text-blue-400"></i>התעשייה הביטחונית בישראל</h3>
-      <div class="glass-card p-3 rounded-xl border border-slate-800">
-        <div class="flex justify-between text-xs font-bold text-amber-400 mb-1"><span>התעשייה האווירית (IAI)</span><span class="text-[10px] text-slate-400">מקור: IAI / Jane's</span></div>
-        <p class="text-xs text-slate-300">חשיפת מטען POP 1000 עם עיבוד AI מתקדם; צבר ההזמנות חצה 35 מיליארד דולר.</p>
-      </div>
-    </section>
+    <div class="container">
 
-    <!-- Global -->
-    <section id="section-global" class="space-y-3 pt-2">
-      <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-globe text-indigo-400"></i>מדינות, מדיניות וכלכלה</h3>
-      <div class="grid grid-cols-2 gap-2 text-xs">
-        <div class="glass-card p-2.5 rounded-xl border border-slate-800"><strong class="text-amber-400 block mb-0.5">🇺🇸 ארה"ב</strong>תקציב חירום מואץ לשילוב נשק לייזר בבסיסים.</div>
-        <div class="glass-card p-2.5 rounded-xl border border-slate-800"><strong class="text-amber-400 block mb-0.5">🇩🇪 גרמניה</strong>התקדמות ברכש מערכות חץ 3 ושילוב קבלני משנה אירופיים.</div>
-      </div>
-    </section>
-  </main>
+        <!-- Status Banner -->
+        <div class="status-banner">
+            <div class="status-info">
+                <h4>תדריך יומי מרוכז לעובדי מערכת הביטחון</h4>
+                <p>עדכון אחרון: אוקטובר 2026 | תזכורת יומיות ב-20:30</p>
+            </div>
+            <div class="time-tag">20:30 IDT</div>
+        </div>
 
-  <script>
-    function toggleDrawer() {
-      document.getElementById('side-drawer').classList.toggle('open');
-      document.getElementById('drawer-backdrop').classList.toggle('hidden');
-    }
-  </script>
+        <!-- Section 1: Top 5 -->
+        <div class="section-header" id="top5">
+            <span class="section-icon">🔥</span>
+            <h2>5 ההתפתחויות החשובות ביותר ביממה האחרונה</h2>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <span class="card-tag tag-official">הכרזה רשמית</span>
+                <div class="card-title">IAI חשפה 3 מערכות הגנה אווירית חדשות ב-AUSA 2026</div>
+                <div class="card-body">
+                    <div class="card-detail"><span>מה קרה:</span> חשיפת פתרונות נגד כטב"מים ורחפנים, כולל Fire Storm 250 על גבי רחפן APUS.</div>
+                    <div class="card-detail"><span>למה זה חשוב:</span> מענה ישיר לאיום הרחפנים הגובר בשדה הקרב המודרני.</div>
+                    <div class="card-detail"><span>השלכה:</span> יתרון תחרותי במכרזי הצטיידות של הפנטגון ונאט"ו.</div>
+                </div>
+                <div class="card-footer">
+                    <span>עובדה מאומתת</span>
+                    <a href="https://breakingdefense.com" target="_blank" class="source-link">Breaking Defense ↗</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="card-tag tag-verified">מאומת</span>
+                <div class="card-title">Ondas ו-Palantir מקימות חברת AI מבצעית (Regna AI)</div>
+                <div class="card-body">
+                    <div class="card-detail"><span>מה קרה:</span> שיתוף פעולה אסטרטגי לפיתוח מודלי AI טקטיים אוטונומיים בזמן אמת.</div>
+                    <div class="card-detail"><span>למה זה חשוב:</span> שילוב בין חומרת כטב"מים (Gate Tech הישראלית) לתוכנת Palantir.</div>
+                    <div class="card-detail"><span>השלכה:</span> שליטה ואוטונומיה בשטח אורבני ללא תלות בתקשורת.</div>
+                </div>
+                <div class="card-footer">
+                    <span>הודעת חברה</span>
+                    <a href="https://en.globes.co.il" target="_blank" class="source-link">Globes English ↗</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="card-tag tag-verified">מאומת</span>
+                <div class="card-title">אספקת מיירטי טמיר (כיפת ברזל) לראשונה ממפעל בארה"ב</div>
+                <div class="card-body">
+                    <div class="card-detail"><span>מה קרה:</span> אספקת מיירטים ראשונים שיוצרו במפעל המשותף ל-Rafael ול-RTX בארה"ב.</div>
+                    <div class="card-detail"><span>למה זה חשוב:</span> עמידה בתקני הרכש האמריקאיים (Buy American Act).</div>
+                    <div class="card-detail"><span>השלכה:</span> הכפלת כושר הייצור והאספקה בחירום לצה"ל ולארה"ב.</div>
+                </div>
+                <div class="card-footer">
+                    <span>משרד הביטחון / רפאל</span>
+                    <a href="https://mod.gov.il" target="_blank" class="source-link">משרד הביטחון ↗</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="card-tag tag-official">רכש ביטחוני</span>
+                <div class="card-title">משרד הביטחון אישר רכישת 12 מסוקי אפאצ'י מבואינג</div>
+                <div class="card-body">
+                    <div class="card-detail"><span>מה קרה:</span> הקצאת תקציב וחתימה על העסקה לשדרוג מערך המסק"רים של חיל האוויר.</div>
+                    <div class="card-detail"><span>למה זה חשוב:</span> חיזוק הסיוע האווירי הקרוב והשמדת מטרות איכות.</div>
+                    <div class="card-detail"><span>השלכה:</span> הרחבת הסד"כ המבצעי והמוכנות הרב-זירתית.</div>
+                </div>
+                <div class="card-footer">
+                    <span>עובדה מאומתת</span>
+                    <a href="https://www.jpost.com" target="_blank" class="source-link">Jerusalem Post ↗</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="card-tag tag-verified">עסקת יצוא</span>
+                <div class="card-title">ארגנטינה מצטיידת ברובי ARAD מבית IWI הישראלית</div>
+                <div class="card-body">
+                    <div class="card-detail"><span>מה קרה:</span> בחירה ברובי ARAD-5/7 עבור כוחות הביטחון של ארגנטינה בהסכם G2G.</div>
+                    <div class="card-detail"><span>למה זה חשוב:</span> זכייה מול כ-8 מתחרות בינלאומיות מארה"ב ואירופה.</div>
+                    <div class="card-detail"><span>השלכה:</span> הרחבת אחיזת התעשייה הישראלית באמריקה הלטינית.</div>
+                </div>
+                <div class="card-footer">
+                    <span>עובדה מאומתת</span>
+                    <a href="https://www.israeldefense.co.il" target="_blank" class="source-link">Israel Defense ↗</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Israeli Defense Industry -->
+        <div class="section-header" id="israel">
+            <span class="section-icon">🇮🇱</span>
+            <h2>התעשייה הביטחונית בישראל</h2>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-title">אלביט מערכות (Elbit Systems)</div>
+                <div class="card-body">
+                    השתתפות רשמית ראשונה בתערוכת Marrakech Air Show במרוקו. הצגת מל"טי Hermes 900, מערכות ארטילריה PULS ופתרונות תקשורת טקטית.
+                </div>
+                <div class="card-footer">
+                    <span>דיווח מרוקו</span>
+                    <a href="https://www.defensenews.com" target="_blank" class="source-link">Defense News ↗</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">רפאל (RAFAEL)</div>
+                <div class="card-body">
+                    הציגה סדרת טילי SPICE 1000 המשולבים לראשונה במטוסי F-35 בכנס AUSA, לצד התקדמות בהקמת מפעל הייצור המשותף בגרמניה.
+                </div>
+                <div class="card-footer">
+                    <span>הודעת חברה</span>
+                    <a href="https://www.rafael.co.il" target="_blank" class="source-link">אתר רפאל ↗</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Defense-Tech & Startups -->
+        <div class="section-header" id="deftech">
+            <span class="section-icon">🚀</span>
+            <h2>Defense-Tech & סטארטאפים</h2>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>חברה / מיזם</th>
+                        <th>תחום עיסוק</th>
+                        <th>היקף / סטטוס</th>
+                        <th>משמעות מבצעית</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Gate Tech & Ondas</b></td>
+                        <td>רחפנים ואוטונומיה</td>
+                        <td>$390M (רכישה)</td>
+                        <td>הקמת מרכז פיתוח לרחפנים אוטונומיים בישראל</td>
+                    </tr>
+                    <tr>
+                        <td><b>Cyera / Island</b></td>
+                        <td>סייבר ואבטחת AI</td>
+                        <td>$400M (סבב גיוס)</td>
+                        <td>הגנה על תשתיות קריטיות וסוכני AI</td>
+                    </tr>
+                    <tr>
+                        <td><b>Capitolis</b></td>
+                        <td>פינטק & אבטחה</td>
+                        <td>$220M (גיוס)</td>
+                        <td>חוסן פיננסי למגזר הביטחוני</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 4: Global & Geopolitics -->
+        <div class="section-header" id="global">
+            <span class="section-icon">🌍</span>
+            <h2>מדינות, מדיניות וכלכלה ביטחונית</h2>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-title">🇺🇸 ארה"ב</div>
+                <div class="card-body">הפנטגון מרחיב פריסת כוחות ואמצעי הגנא"ו במפרץ הפרסי להבטחת חופש השיט.</div>
+            </div>
+            <div class="card">
+                <div class="card-title">🇲🇦 מרוקו & הסכמי אברהם</div>
+                <div class="card-body">פתיחת ביתן לאומי ישראלי בראשות סיב"ט בתערוכה האווירית במרוקו.</div>
+            </div>
+            <div class="card">
+                <div class="card-title">🇩🇪 גרמניה</div>
+                <div class="card-body">התקדמות בשילוב מערכות הגנה ישראליות (SPYDER וחץ 3) בנאט"ו.</div>
+            </div>
+        </div>
+
+        <!-- Section 5: Watchlist -->
+        <div class="section-header" id="watch">
+            <span class="section-icon">👁️</span>
+            <h2>מה לעקוב אחריו מחר</h2>
+        </div>
+
+        <div class="card" style="border-right: 4px solid var(--accent-amber);">
+            <div class="card-body" style="margin: 0;">
+                <p>• <b>AUSA 2026:</b> הכרזות חוזים וסיכומים מיומה האחרון של התערוכה בוושינגטון.</p>
+                <p>• <b>מרוקו:</b> חוזי הצטיידות חדשים בעקבות פגישות סיב"ט והתעשיות הישראליות.</p>
+                <p>• <b>סחר ימי:</b> התפתחויות ביטחוניות בשרשרת האספקה במצר הורמוז ומחירי הביטוח.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#top5" class="nav-item active">
+            <span class="nav-icon">🔥</span>
+            <span>Top 5</span>
+        </a>
+        <a href="#israel" class="nav-item">
+            <span class="nav-icon">🇮🇱</span>
+            <span>ישראל</span>
+        </a>
+        <a href="#deftech" class="nav-item">
+            <span class="nav-icon">🚀</span>
+            <span>Startup</span>
+        </a>
+        <a href="#global" class="nav-item">
+            <span class="nav-icon">🌍</span>
+            <span>עולם</span>
+        </a>
+    </nav>
+
 </body>
 </html>
