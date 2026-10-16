@@ -1,0 +1,770 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Defense Brief</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b1020;
+    --card: #121a2e;
+    --card-2: #0f1627;
+    --line: #223052;
+    --text: #e8edf7;
+    --muted: #9aa8c4;
+    --accent: #3dd6c6;
+    --green: #4ade80;
+    --blue: #60a5fa;
+    --amber: #f5b63d;
+    --purple: #c084fc;
+    --gray: #8190ad;
+    --radius: 16px;
+    color-scheme: dark;
+  }
+  html, body { direction: rtl; text-align: right; }
+  input, button, textarea { direction: rtl; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Heebo', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+  }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+  a { color: var(--accent); }
+  button { font: inherit; color: inherit; }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+  /* Sticky top bar */
+  .topbar {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+    background: rgba(11, 16, 32, .94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 0 6px; }
+  .brand h1 { margin: 0; font-size: 18px; font-weight: 800; letter-spacing: .2px; }
+  .brand .live { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .nav { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 10px; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a {
+    flex: 0 0 auto; text-decoration: none; color: var(--text);
+    background: var(--card); border: 1px solid var(--line); border-radius: 999px;
+    padding: 0 14px; min-height: 40px; display: inline-flex; align-items: center;
+    font-size: 14px; font-weight: 500;
+  }
+  .nav a:active { background: var(--line); }
+  .header-actions { display:flex; gap:8px; align-items:center; }
+  .action-btn { border:1px solid var(--line); background:var(--card); border-radius:11px; padding:7px 11px; min-height:40px; cursor:pointer; white-space:nowrap; }
+  .drawer-backdrop { position:fixed; inset:0; z-index:39; background:rgba(0,0,0,.58); }
+  .drawer { position:fixed; z-index:40; top:0; right:0; bottom:0; width:min(88vw,360px); overflow:auto; background:var(--card-2); border-left:1px solid var(--line); padding:calc(18px + env(safe-area-inset-top,0px)) 16px 24px; box-shadow:-16px 0 40px #0006; }
+  .drawer h2 { margin:0 0 14px; font-size:20px; }
+  .drawer button.topic-link { display:block; width:100%; text-align:right; border:1px solid var(--line); background:var(--card); border-radius:12px; padding:12px; margin:8px 0; cursor:pointer; }
+  .drawer .topic-link small { display:block; color:var(--muted); font-size:12px; }
+  .topic-summary { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px; margin:10px 0; }
+  .topic-summary h3 { margin:0 0 5px; font-size:17px; }
+  .topic-summary p { margin:0 0 10px; color:#d4dcee; font-size:14px; }
+  .topic-summary button { border:1px solid var(--line); background:var(--card-2); border-radius:10px; padding:7px 11px; cursor:pointer; }
+  .view-title { display:flex; justify-content:space-between; align-items:center; gap:10px; margin:18px 0 8px; }
+  .view-title h2 { margin:0; font-size:20px; }
+  .back-btn { border:1px solid var(--line); background:var(--card); border-radius:10px; padding:7px 11px; cursor:pointer; }
+
+  /* Hero */
+  .hero { margin: 16px 0 14px; padding: 16px; border-radius: var(--radius);
+    background: linear-gradient(135deg, #14213d 0%, #0f1b33 60%, #0d2a2f 100%);
+    border: 1px solid #1f3b52; }
+  .hero .meta { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 8px; }
+  .hero h2 { margin: 0 0 6px; font-size: 20px; line-height: 1.35; }
+  .hero p { margin: 0; color: #cdd7ea; font-size: 15px; }
+
+  .stale { margin: 12px 0; padding: 12px 14px; border-radius: 12px;
+    background: #3b2a0b; border: 1px solid #7a5a14; color: #ffd98a; font-size: 14px; }
+
+  /* Digest */
+  .digest { margin: 0 0 18px; padding: 14px 14px 4px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); scroll-margin-top: 112px; }
+  .digest h2 { margin: 0 0 4px; font-size: 18px; font-weight: 800; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .digest h2 small { font-size: 12px; font-weight: 500; color: var(--muted); }
+  .digest ul { list-style: none; margin: 0; padding: 0; }
+  .digest li { padding: 12px 0; border-top: 1px solid var(--line); }
+  .digest li:first-child { border-top: 0; }
+  .digest .dtop { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .digest p { margin: 0; font-size: 15px; color: #d4dcee; }
+  .digest .dlink { font-size: 13px; margin-inline-start: 6px; white-space: nowrap; }
+  .digest .dnote { margin: 0; padding: 10px 0 12px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+
+  /* Filters */
+  .filters { display: grid; gap: 10px; margin-bottom: 8px; }
+  .search {
+    width: 100%; min-height: 46px; padding: 0 14px;
+    background: var(--card-2); color: var(--text);
+    border: 1px solid var(--line); border-radius: 12px; font: inherit; font-size: 16px;
+  }
+  .search::placeholder { color: #6b7a99; }
+  .search:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    flex: 0 0 auto; min-height: 40px; padding: 0 14px; border-radius: 999px;
+    background: var(--card); border: 1px solid var(--line); cursor: pointer; font-size: 14px;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .chip[aria-pressed="true"] { background: var(--accent); color: #05231f; border-color: var(--accent); font-weight: 700; }
+  .count-note { font-size: 13px; color: var(--muted); min-height: 20px; }
+
+  /* Sections */
+  section.block { margin: 22px 0 8px; scroll-margin-top: 112px; }
+  section.block > h3 { margin: 0 0 10px; font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+  section.block > h3 .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 26px; height: 26px; border-radius: 8px; background: var(--accent); color: #05231f; font-size: 14px; font-weight: 800;
+  }
+
+  /* Cards */
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; margin-bottom: 12px; }
+  .card.none { background: var(--card-2); }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .badge { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; border: 1px solid; white-space: nowrap; }
+  .b-verified { color: var(--green); border-color: #1f6b3d; background: #0f2a1b; }
+  .b-company { color: var(--blue); border-color: #20507e; background: #0e2236; }
+  .b-preliminary { color: var(--amber); border-color: #7a5a14; background: #2a200a; }
+  .b-estimate { color: var(--purple); border-color: #5c3a86; background: #1f1430; }
+  .b-none { color: var(--gray); border-color: #374260; background: #141b2c; }
+  .flags { font-size: 15px; letter-spacing: 2px; }
+  .date { font-size: 12px; color: var(--muted); }
+  .star {
+    flex: 0 0 auto; width: 44px; height: 44px; margin: -6px -8px -6px 0; border-radius: 12px;
+    background: transparent; border: 0; cursor: pointer; font-size: 22px; color: #55648a;
+  }
+  .star[aria-pressed="true"] { color: var(--amber); }
+  .card h4 { margin: 0 0 8px; font-size: 17px; line-height: 1.4; font-weight: 700; }
+  .field { margin: 8px 0 0; font-size: 15px; color: #d4dcee; }
+  .field b { color: var(--text); font-weight: 700; }
+  .field.impl { color: #c9b6ee; }
+  .field.impl b { color: var(--purple); }
+  .sources { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; font-size: 13px; }
+  .sources .lbl { color: var(--muted); }
+  .sources a {
+    display: inline-flex; align-items: center; min-height: 32px; padding: 0 10px; border-radius: 999px;
+    background: #0e2b2b; border: 1px solid #1d5a56; text-decoration: none; color: var(--accent); font-weight: 500;
+  }
+
+  .tomorrow { list-style: none; margin: 0; padding: 0; }
+  .tomorrow li { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; font-size: 15px; }
+  .tomorrow li a { font-size: 13px; }
+
+  .empty { text-align: center; color: var(--muted); padding: 28px 12px; border: 1px dashed var(--line); border-radius: var(--radius); margin-top: 14px; }
+
+  footer { margin-top: 28px; padding: 16px; border-radius: var(--radius); background: var(--card-2); border: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  footer h5 { margin: 0 0 6px; color: var(--text); font-size: 14px; }
+  footer .legend { display: grid; gap: 6px; margin: 8px 0 12px; }
+  footer p { margin: 6px 0; }
+
+  @media (min-width: 640px) {
+    body { font-size: 17px; }
+    .wrap { padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+    .hero h2 { font-size: 24px; }
+    .card { padding: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <h1>Defense Brief</h1>
+      <div class="header-actions"><span class="live" id="asOf"></span><button class="action-btn" id="openDrawer" aria-expanded="false">☰ נושאים</button><button class="action-btn" id="shareBtn">↗ שיתוף</button></div>
+    </div>
+  </div>
+</header>
+
+<div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+<aside class="drawer" id="topicDrawer" aria-label="נושאי התדריך" hidden>
+  <div class="view-title"><h2>נושאי התדריך</h2><button class="back-btn" id="closeDrawer">סגירה ✕</button></div>
+  <button class="topic-link" data-home>תקציר יומי<small>חמש התפתחויות מרכזיות ותקצירי נושאים</small></button>
+  <div id="drawerTopics"></div>
+</aside>
+<main class="wrap">
+
+  <div class="stale" id="stale" role="status" hidden></div>
+
+  <div class="hero">
+    <div class="meta"><span id="dateLabel"></span><span id="readTime"></span></div>
+    <h2 id="headline"></h2>
+    <p id="lead"></p>
+  </div>
+
+  <section class="digest" id="digest" aria-labelledby="digestTitle">
+    <h2 id="digestTitle">תקציר יומי <small id="digestMeta"></small></h2>
+    <ul id="digestList"></ul>
+    <p class="dnote" id="digestNote" hidden></p>
+  </section>
+
+  <section id="homeView">
+    <div class="view-title"><h2>נושאים מרכזיים</h2></div>
+    <div id="topicSummaries"></div>
+  </section>
+  <section id="detailView" hidden>
+    <div class="view-title"><h2 id="detailTitle">דיווחים בנושא</h2><button class="back-btn" id="backHome">חזרה לתקציר</button></div>
+    <div class="filters">
+      <input class="search" id="q" type="search" inputmode="search" enterkeyhint="search" placeholder="חיפוש בנושא: חברה, מדינה, מערכת..." aria-label="חיפוש בדיווחים בנושא">
+      <div class="chips" id="countryChips" role="group" aria-label="סינון לפי מדינה"></div>
+      <div class="count-note" id="countNote"></div>
+    </div>
+    <div id="content"></div>
+  </section>
+  <div class="empty" id="empty" hidden>לא נמצאו ידיעות תואמות. נסה לשנות את הסינון או את החיפוש.</div>
+
+  <footer>
+    <h5>איך לקרוא את התדריך</h5>
+    <div class="legend">
+      <div><span class="badge b-verified">עובדה מאומתת</span> אושרה בכמה מקורות עצמאיים או בהודעה רשמית.</div>
+      <div><span class="badge b-company">הודעת חברה</span> נתון שהחברה עצמה פרסמה; לא נבדק באופן עצמאי.</div>
+      <div><span class="badge b-preliminary">דיווח ראשוני</span> מקור יחיד או מקורות אנונימיים; יש לאמת.</div>
+      <div><span class="badge b-estimate">הערכה</span> הערכה אנליטית, לא עובדה.</div>
+      <div><span class="badge b-none">אין התפתחות</span> לא נמצאה התפתחות מהותית בנושא; מצורף רקע קצר.</div>
+    </div>
+    <h5>כיסוי ומגבלות</h5>
+    <p id="coverage"></p>
+  </footer>
+</main>
+
+<script>
+/* =====================================================================
+   בלוק הנתונים היומי — זה החלק היחיד שמחליפים מדי יום.
+   מחליפים את כל האובייקט BRIEF (מ-const BRIEF = { ועד }; לפני הסקריפט הבא).
+   status: verified | company | preliminary | estimate | none
+   countries: israel | usa | germany | india | azerbaijan | uae | europe
+   ===================================================================== */
+const BRIEF = {
+  date: "2026-10-16",
+  dateLabel: "יום שישי, 16 באוקטובר 2026",
+  asOf: "עודכן 16.10.2026, 11:45",
+  readingMinutes: 9,
+  headline: "ישראל חתמה על רכש האפאצ׳י תחת לחץ תקציבי, וה-AUSA מציג את הדור הבא של ההגנה האווירית",
+  lead: "מסוקי האפאצ׳י אושרו ברגע האחרון כשבועיים לפני הבחירות, רפאל ו-IAI חשפו בוושינגטון את Sky Sonic ומכ״ם בלון, ו-Anduril מתכננת הצעת רכש פנימית בשווי של כ-90 מיליארד דולר. בהודו, באמירויות ובגרמניה לא נמצאה ב-24 השעות האחרונות התפתחות מהותית חדשה.",
+  digest: [
+    { text: "ישראל חתמה על עסקה ל-12 מסוקי אפאצ׳י מארה״ב לאחר אישור תקציב דחוף של כמיליארד ש״ח. משרד הביטחון והאוצר עדיין חלוקים על תוספת של 25 מיליארד ש״ח.", status: "verified", countries: ["israel", "usa"], url: "https://www.timesofisrael.com/liveblog_entry/israel-signs-deal-to-buy-12-apache-helicopters-from-uss-boeing/", linkName: "Times of Israel" },
+    { text: "רפאל חשפה ב-AUSA דגם מלא של המיירט נגד איומים היפרסוניים Sky Sonic, ללא פרסום תוצאות ניסוי. IAI הציגה מכ״ם בלון נייד שמזהה מטרות עד כ-150 ק״מ.", status: "verified", countries: ["israel", "usa"], url: "https://breakingdefense.com/2026/10/israels-iai-unveils-3-new-air-defense-systems-at-ausa/", linkName: "Breaking Defense" },
+    { text: "Anduril תציע לעובדים למכור מניות לפי שווי של כ-90 מיליארד דולר, לעומת 61 מיליארד במאי.", status: "company", countries: ["usa"], url: "https://www.cnbc.com/2026/10/14/anduril-tender-offer-valuation.html", linkName: "CNBC" },
+    { text: "הצי האמריקאי מוסיף 150 מיליון דולר למטוס הקרב האוטונומי X-BAT של Shield AI. אב-טיפוס צפוי להיחשף עד סוף אוקטובר.", status: "verified", countries: ["usa"], url: "https://theregister.com/offbeat/2026/10/09/us-navy-bets-another-150m-on-fighter-drone-that-skips-the-runway/5302237", linkName: "The Register" },
+    { text: "הנציבות האירופית הקצתה 168 מיליון אירו להרחבת ייצור טילים, רחפנים ותחמושת באירופה. הדיווח ממקור יחיד.", status: "preliminary", countries: ["europe"], url: "https://democrata.es/en/international/brussels-allocates-168-million-to-strengthen-european-production-of-missiles-drones-and-ammunition", linkName: "Democrata" }
+  ],
+  digestNote: "אין התפתחות מהותית ב-24 השעות האחרונות: אלביט, גרמניה, הודו ואיחוד האמירויות.",
+  coverage: "התדריך נערך מחיפוש במקורות גלויים בלבד. נסרקו בין השאר Breaking Defense, Defense News, Aviation Week, Janes, CNBC, Times of Israel, Jerusalem Post, Ynet, כלכליסט (CTech), Globes, Haaretz, Al Jazeera, i24NEWS ואתרים נוספים. לא נסרקו ישירות הגרסאות העבריות של כלכליסט, גלובס, TheMarker והארץ, אתרי החברות, Reuters, AP, FT ו-Bloomberg (חלקם חסומים בתשלום), ולכן ייתכנו ידיעות שלא נתפסו. כמה פריטים נושאים תאריך מוקדם יותר וסומנו כרקע. מועד ההפקה הבא: 20:30.",
+  sections: [
+    {
+      id: "top5",
+      title: "5 ההתפתחויות החשובות ביותר",
+      numbered: true,
+      items: [
+        {
+          title: "ישראל חתמה על רכש 12 מסוקי אפאצ׳י AH-64E מארה״ב, לאחר אישור תקציב דחוף",
+          countries: ["israel", "usa"],
+          date: "14.10.2026",
+          status: "verified",
+          what: "משרד הביטחון והפנטגון חתמו ביום רביעי בערב על עסקה ל-12 מסוקי אפאצ׳י מדגם Echo של בואינג, שיגיעו בתחילת העשור הבא. קודם לכן אישרה הממשלה בהצבעה טלפונית כמיליארד ש״ח (כ-323 מיליון דולר) לצורך הרכש, אחרי שמועד ההזמנה הוחמץ כמה פעמים.",
+          why: "העסקה (כמיליארד דולר) כמעט קרסה בגלל מחסור תקציבי. לפי Ynet המימון בא מדחיית תשלומים בעסקאות רכש אחרות, ולפי ג׳רוזלם פוסט כמיליארד ש״ח יועברו מתוכנית לפיתוח המגזר הערבי, כשבועיים לפני הבחירות.",
+          impl: "הערכה: המקרה ממחיש את הפער בין משרד הביטחון לאוצר (המשרד טוען לחסר של כ-40 מיליארד ש״ח בתקציב 2026), וסביר שעסקאות רכש נוספות ייתקלו באותה מגבלה. לפי אתר The Defense News נדרש עדיין אישור סופי של הוועדה השרית לרכש.",
+          sources: [
+            { name: "Times of Israel", url: "https://www.timesofisrael.com/liveblog_entry/israel-signs-deal-to-buy-12-apache-helicopters-from-uss-boeing/" },
+            { name: "i24NEWS", url: "https://www.i24news.tv/en/news/israel/defense/artc-israel-signs-deal-with-pentagon-for-12-advanced-apache-attack-helicopters" },
+            { name: "Ynet", url: "https://www.ynetnews.com/article/hknfyx6jfx" },
+            { name: "ישראל היום", url: "https://www.israelhayom.com/2026/10/14/israel-approves-billions-apache-helicopter-procurement" }
+          ]
+        },
+        {
+          title: "רפאל חשפה דגם מלא של Sky Sonic, ו-IAI הציגה מכ״ם בלון ופתרונות נגד רחפנים ב-AUSA",
+          countries: ["israel", "usa"],
+          date: "12–14.10.2026",
+          status: "verified",
+          what: "בתערוכת צבא ארה״ב בוושינגטון הציגה רפאל דגם בגודל מלא של Sky Sonic, מיירט נגד איומים היפרסוניים, כ-3.5 שנים אחרי הכרזת הפרויקט; תוצאות ניסוי לא פורסמו. IAI חשפה שלוש מערכות הגנה אווירית, ביניהן Point@Air, מכ״ם על בלון הניתן להזזה שמזהה מטרות עד כ-150 ק״מ, ומערכת HawkGuard נגד רחפנים. רפאל הציגה גם שיגור טילי Spike ממשגרי TOW קיימים על גבי נגמ״שי Bradley.",
+          why: "הצבא האמריקאי הוא יעד מרכזי ליצוא הישראלי, והדגש התעשייתי עובר להגנה מפני רחפנים ולשילוב במערכות קיימות. משלחת משרד הביטחון כללה 19 חברות לפי JNS, ו-Ynet מדווח על כ-25 חברות ישראליות בתערוכה.",
+          impl: "הערכה: חשיפה ללא נתוני ניסוי היא אות שיווקי יותר מאשר הוכחת יכולת. כדאי להמתין לדיווח על מבחנים או על חוזה אמריקאי.",
+          sources: [
+            { name: "Ynet", url: "https://www.ynetnews.com/tech-and-digital/article/s1bghbssfe" },
+            { name: "Breaking Defense", url: "https://breakingdefense.com/2026/10/israels-iai-unveils-3-new-air-defense-systems-at-ausa/" },
+            { name: "Aviation Week", url: "https://aviationweek.com/defense/aircraft-propulsion/iai-unveil-relocatable-aerostat-radar-system-ausa" },
+            { name: "JNS", url: "https://jns.org/news/israel-news/israel-showcases-defense-technology-at-ausa-in-washington" }
+          ]
+        },
+        {
+          title: "Anduril תאפשר לעובדים למכור מניות לפי שווי של כ-90 מיליארד דולר",
+          countries: ["usa"],
+          date: "14.10.2026",
+          status: "company",
+          what: "לפי CNBC, שקיבלה אישור מהחברה, Anduril תקיים הצעת רכש פנימית למניות עובדים לפי שווי של כ-90 מיליארד דולר, לעומת 61 מיליארד בסבב של 5 מיליארד דולר שנסגר במאי. בשבוע שעבר הוענק לה חוזה של עד 2.9 מיליארד דולר מהצי האמריקאי לרכיבי צוללות Virginia, לצד השקעה עצמית של 3.7 מיליארד דולר באתר ייצור במרילנד.",
+          why: "עלייה של כמעט 50% בשווי תוך חמישה חודשים מחזקת את תמונת ההון שזורם לתחום, ומציבה את Anduril כשחקנית ייצור כבדה ולא רק כחברת תוכנה ורחפנים.",
+          impl: "הערכה: סכום חוזה הצי הוא תקרה ולא התחייבות, והתשלום מותנה בתוצרי ייצור. הפעילות באתר צפויה להתחיל רק ב-2030, כך שהשווי נשען על ביקוש עתידי.",
+          sources: [
+            { name: "CNBC", url: "https://www.cnbc.com/2026/10/14/anduril-tender-offer-valuation.html" },
+            { name: "Janes", url: "https://www.janes.com/defence-intelligence-insights/defence-news/industry/anduril-industries-awarded-usd29-billion-us-navy-contract-for-submarine-work" }
+          ]
+        },
+        {
+          title: "הצי האמריקאי מוסיף 150 מיליון דולר לפיתוח מטוס הקרב האוטונומי X-BAT של Shield AI",
+          countries: ["usa"],
+          date: "9–15.10.2026",
+          status: "verified",
+          what: "הצי התחייב ל-150 מיליון דולר נוספים לפיתוח X-BAT, מטוס קרב בלתי מאויש שממריא ונוחת אנכית, וחברת Shield AI צריכה להשלים סכום זהה. סך המימון הממשלתי עומד על 200 מיליון דולר, וכ-400 מיליון דולר יחד עם השתתפות החברה. החברה מצפה לחשוף אב-טיפוס בקנה מידה מלא עד סוף אוקטובר, ולערוך ניסויי טיסה עד סוף השנה.",
+          why: "מימון ממשלתי משותף לפלטפורמה קרבית אוטונומית מעיד על מעבר מהדגמות לתוכניות פיתוח של ממש.",
+          impl: "הערכה: תוצאות ניסויי הטיסה ייקבעו אם מדובר בהתחייבות רב-שנתית או בפיילוט. עד אז הנתונים על טווח ויכולות הם נתוני יצרן.",
+          sources: [
+            { name: "TechRadar", url: "https://techradar.com/pro/us-navy-could-see-first-vtol-x-bat-uav-by-end-of-this-month-as-external-funding-reaches-usd200-million-shield-ais-fighter-sized-drone-can-fly-2000-nautical-miles-reach-50-000-feet" },
+            { name: "The Register", url: "https://theregister.com/offbeat/2026/10/09/us-navy-bets-another-150m-on-fighter-drone-that-skips-the-runway/5302237" }
+          ]
+        },
+        {
+          title: "הנציבות האירופית מקצה 168 מיליון אירו להרחבת ייצור טילים, רחפנים ותחמושת",
+          countries: ["europe"],
+          date: "14.10.2026",
+          status: "preliminary",
+          what: "לפי הדיווח, הנציבות הודיעה על הקצאת 168.2 מיליון אירו לשמונה פרויקטים ב-17 מפעלים באיחוד ובנורווגיה, במסגרת EDIP, תוכנית תעשיית ההגנה האירופית (תקציב כולל של 1.5 מיליארד אירו). היעד: קיבולת של מעל 20 אלף טון חומרים אנרגטיים, 3,500 מערכות הנעה לרחפנים וטילים ו-200 אלף ראשי קרב לתחמושת משוטטת.",
+          why: "צווארי בקבוק בחומרי הנעה ופיצוץ מגבילים את כל תעשיית ההגנה האירופית, והסכום מכוון ישירות אליהם.",
+          impl: "הערכה: הסכום קטן ביחס לצורך (נאט״ו זיהה בתחילת השנה פער של עד 145 מיליארד דולר בתחמושת ובהגנה אווירית), אך הוא מסמן העדפה לייצור אירופי. נמצא מקור יחיד; כדאי לאמת מול הודעת הנציבות.",
+          sources: [
+            { name: "Democrata (דיווח)", url: "https://democrata.es/en/international/brussels-allocates-168-million-to-strengthen-european-production-of-missiles-drones-and-ammunition" }
+          ]
+        }
+      ]
+    },
+    {
+      id: "israel",
+      title: "התעשייה הביטחונית בישראל",
+      items: [
+        {
+          title: "משרד הביטחון מבקש תוספת של 25 מיליארד ש״ח; האוצר שוקל קיצוץ רוחבי",
+          countries: ["israel"],
+          date: "13–14.10.2026",
+          status: "verified",
+          what: "לפי כלכליסט, כשבועיים לפני הבחירות שוקל האוצר קיצוץ רוחבי בתקציבי המשרדים (עד כ-2 מיליארד ש״ח לפי גורמי ביטחון), בעוד הביטחון טוען לפער של כ-40 מיליארד ש״ח ב-2026 ומבקש תוספת של 25 מיליארד. תקציב הביטחון המאושר עומד על 143 מיליארד ש״ח. ביום רביעי אישרה הממשלה כ-3.5 מיליארד ש״ח לרכש דחוף, כולל קיצוץ רוחבי של כ-2.5–2.6 מיליארד ש״ח.",
+          why: "החוב של המדינה לרפאל, IAI ואלביט הגיע, לפי כלכליסט מ-22 בספטמבר, ל-17 מיליארד ש״ח (כ-5.7 מיליארד דולר), והוא מעמיס על תזרים התעשיות ועל ספקי המשנה.",
+          impl: "הערכה: בלי הסכמה תקציבית ייתכנו עיכובים בהזמנות חדשות מהתעשיות, אך הביקוש היצואני הגבוה מקל על החברות.",
+          sources: [
+            { name: "כלכליסט (CTech)", url: "https://www.calcalistech.com/ctechnews/article/wat55035c" },
+            { name: "Ynet", url: "https://www.ynetnews.com/article/rjk5mo8tge" },
+            { name: "כלכליסט – החוב לתעשיות", url: "https://www.calcalistech.com/ctechnews/article/8tnimdrgs" }
+          ]
+        },
+        {
+          title: "תערוכת מראקש: כל התעשיות הגדולות הציגו, ואלביט בהופעה ראשונה",
+          countries: ["israel"],
+          date: "7–10.10.2026",
+          status: "verified",
+          what: "IAI, אלביט (לראשונה), רפאל, Xtend ו-UVision השתתפו בתערוכת האוויר במראקש. משרד הביטחון הציג ביתן ישראלי ראשון בתערוכת ביטחון במרוקו, ולפי המשרד הציגו בו שמונה חברות ישראליות.",
+          why: "מרוקו מעמיקה את הקשרים הביטחוניים מאז הנורמליזציה: IAI סיפקה לה את מערכת Barak 8 בכ-500 מיליון דולר, ולפי דיווחים נחתם הסכם לווין בכמיליארד דולר.",
+          impl: "הערכה: המשך הרחבת הנוכחות בצפון אפריקה, אך נתוני עסקאות חדשות לא פורסמו בתערוכה.",
+          sources: [
+            { name: "כלכליסט (CTech)", url: "https://www.calcalistech.com/ctechnews/article/1luvnp4wi" },
+            { name: "The New Arab", url: "https://www.newarab.com/news/israel-showcases-arms-morocco-firms-behind-gaza-bombs" }
+          ]
+        },
+        {
+          title: "רפאל קרובה לעסקת Spyder עם צ׳כיה, שתכלול גם מערכת פיקוד ושליטה לאומית",
+          countries: ["israel", "europe"],
+          date: "18–19.9.2026 (רקע)",
+          status: "preliminary",
+          what: "לפי Globes ומקורות, רפאל קרובה לחתימה על אספקת Spyder ומערכת פיקוד ושליטה לצ׳כיה. ב-19 בספטמבר, בטקס בתערוכת NATO Days באוסטרבה, הוצגה המערכת הראשונה שסופקה מהעסקה מ-2021.",
+          why: "אם תיחתם, זו עוד עסקת הגנה אווירית אירופית גדולה אחרי רומניה (כ-2 מיליארד אירו, יוני) ויוון (כ-3.1 מיליארד אירו).",
+          impl: "הערכה: מגמה של מכירת מערכות מלאות עם רכיב פיקוד ושליטה, ולא רק פלטפורמות בודדות. טרם נחתם הסכם.",
+          sources: [
+            { name: "Globes", url: "https://en.globes.co.il/en/article-czech-republic-nears-deal-for-rafaels-spyder-system-1001556934" },
+            { name: "European Security & Defence", url: "https://euro-sd.com/2026/09/news/air/53915/rafael-spyder/" }
+          ]
+        },
+        {
+          title: "אלביט: לא אותרה הודעה מהותית ב-24 השעות האחרונות",
+          countries: ["israel"],
+          date: "—",
+          status: "none",
+          what: "ההודעה האחרונה שנבדקה היא חוזים בהיקף כ-270 מיליון דולר לאספקת מטענים ל-ISR ולמיקוד ללקוח בינלאומי, בביצוע של עד שש שנים (הודעת חברה מתחילת ספטמבר).",
+          sources: [
+            { name: "StockTitan (הודעת אלביט)", url: "https://www.stocktitan.net/news/ESLT/elbit-systems-signed-contracts-with-an-international-customer-valued-g821kpyks9jr.html" }
+          ]
+        }
+      ]
+    },
+    {
+      id: "tech",
+      title: "Defense-Tech וסטארטאפים",
+      items: [
+        {
+          title: "Covenant יצאה מההסתרה: 250 מיליון דולר, שווי מעל מיליארד ומפעל טילי שיוט בדאלאס",
+          countries: ["israel", "usa", "germany"],
+          date: "9.9.2026 (רקע)",
+          status: "company",
+          what: "הסטארטאפ, שנוסד ב-2024 בידי יזם אמריקאי-ישראלי, חשף את Anthem, טיל שיוט קרקעי כבד נשיאה לטווח ארוך, לאחר גיוס של מעל 250 מיליון דולר בשלושה סבבים בהובלת a16z, Founders Fund, Lux, 8VC, Aleph ו-Lightspeed. לפי החברה היא רשמה הזמנות בכ-150 מיליון דולר, ופועלת עם מפעל בדאלאס וקווי ייצור בגרמניה ובצפון ישראל.",
+          why: "טילי שיוט זולים לייצור המוני הם פער מרכזי בארסנל המערבי, והגיוס נשען על קרנות מובילות בתחום.",
+          impl: "הערכה: השווי וההזמנות הם נתוני החברה. היכולת לספק אלפי יחידות ב-2027 טרם הוכחה.",
+          sources: [
+            { name: "כלכליסט (CTech)", url: "https://www.calcalistech.com/ctechnews/article/hjhm5saugx" },
+            { name: "Tectonic", url: "https://www.tectonicdefense.com/covenant-emerges-from-stealth-with-250m-for-long-range-strike/" }
+          ]
+        },
+        {
+          title: "גיוסים בישראל: 2.77 מיליארד דולר בספטמבר, ובדיפנס-טק כמעט 3 מיליארד דולר במחצית הראשונה",
+          countries: ["israel"],
+          date: "אוקטובר 2026 (נתונים מצטברים)",
+          status: "verified",
+          what: "לפי נתוני CTech גויסו בישראל 2.77 מיליארד דולר בספטמבר, בהובלת חמישה סבבי ענק. בדיפנס-טק נרשמו, בין היתר, AITAN (41 מיליון דולר, רחפני קרב) ו-Covenant, ובסייבר Island (400 מיליון דולר). לפי ג׳רוזלם פוסט, סטארטאפי ביטחון הפועלים מול משרד הביטחון גייסו כמעט 3 מיליארד דולר במחצית הראשונה של 2026, וחברות דיפנס-טק ושימוש כפול היוו כמעט 30% מ-8.4 מיליארד דולר בהשקעות פרטיות.",
+          why: "הנתונים מראים שהתחום הפך לעמוד תווך של השקעות ההון סיכון בישראל, לצד בינה מלאכותית וסייבר.",
+          impl: "הערכה: ריכוז ההון בכמה סבבים גדולים מסתיר שוק רחב ושברירי יותר מתחת לחברות המובילות.",
+          sources: [
+            { name: "כלכליסט (CTech)", url: "https://www.calcalistech.com/ctechnews/article/ryurpyo5fl" },
+            { name: "Jerusalem Post", url: "https://www.jpost.com/defense-and-tech/article-903083" }
+          ]
+        },
+        {
+          title: "Protego Ventures סגרה קרן של 125 מיליון דולר לדיפנס-טק ישראלי",
+          countries: ["israel"],
+          date: "סוף ספטמבר 2026",
+          status: "company",
+          what: "הקרן תשקיע בחברות ביטחוניות בשלבי צמיחה מוקדמים. לפי נתונים שציטטה הקרן, עסקאות הון סיכון בדיפנס-טק בעולם הגיעו ל-19.8 מיליארד דולר ברבעון הראשון של 2026.",
+          why: "הקמת קרנות ייעודיות מעידה על התבססות מערך מימון מקומי לתחום, לצד קרנות אמריקאיות.",
+          sources: [
+            { name: "Ynet", url: "https://www.ynetnews.com/business/article/by2klifqzx" }
+          ]
+        },
+        {
+          title: "Gallatin AI גייסה 50 מיליון דולר בסבב A ללוגיסטיקה צבאית מבוססת בינה מלאכותית",
+          countries: ["usa"],
+          date: "13.10.2026",
+          status: "company",
+          what: "החברה האמריקאית מפתחת את Navigator, כלי לתכנון אספקה ולתחזוקה בסביבות מאוימות, שפועל בכמה יחידות של צבא ארה״ב. סך גיוסיה הגיע ל-70 מיליון דולר, והסבב כלל את 8VC ו-Silent Ventures.",
+          why: "תוכנה ללוגיסטיקה בשדה קרב מושכת הון כמענה לצווארי בקבוק באספקה.",
+          sources: [
+            { name: "Israel Defense", url: "https://www.israeldefense.co.il/en/node/71685" }
+          ]
+        }
+      ]
+    },
+    {
+      id: "world",
+      title: "מדינות, מדיניות וכלכלה",
+      items: [
+        {
+          title: "ארה״ב: Raytheon זכתה בחוזה של עד 6.3 מיליארד דולר למיירטי SM-3 Block IB",
+          countries: ["usa"],
+          date: "8–9.10.2026 (רקע)",
+          status: "verified",
+          what: "חוזה לחמש שנים בבסיס של 4.4 מיליארד דולר, ועוד כ-2 מיליארד באופציות לשנתיים נוספות. המיירטים מיוצרים בעיקר בטוסון ובהנטסוויל.",
+          why: "הפנטגון מכליל את SM-3 IB בין התחמושות הקריטיות להאצה, אחרי צריכת מיירטים גבוהה במלחמה מול איראן.",
+          impl: "הערכה: הלחץ על קיבולת הייצור של מיירטים מגדיל את הביקוש גם לספקים ולמיזמי ייצור משותפים עם בעלות ברית.",
+          sources: [
+            { name: "Breaking Defense", url: "https://breakingdefense.com/2026/10/pentagon-raytheon-ink-up-to-6-3-billion-multi-year-contract-for-sm-3-ib-missiles/" },
+            { name: "Defense News", url: "https://www.defensenews.com/missile-defense/2026/10/09/pentagon-raytheon-sign-63b-deal-to-replenish-us-missile-interceptor-supply/" }
+          ]
+        },
+        {
+          title: "אירופה ונאט״ו: אזהרה מעיכובים רב-שנתיים באספקת תחמושת מונחית ומיירטים",
+          countries: ["europe", "usa", "germany"],
+          date: "14–15.10.2026",
+          status: "preliminary",
+          what: "לפי דיווח מתערוכת Warsaw Security Forum, שגריר ארה״ב בנאט״ו הזהיר שבעלות הברית באירופה יחכו שנים לתחמושת מונחית ולמיירטים אמריקאיים. שר ההגנה של פולין קרא לעבור ל״מצב מלחמה״ בייצור, ולפי נתונים שציטטה Kyiv Post רוסיה ייצרה כ-7 מיליון תחמושות ב-2025, מול כ-2 מיליון פגזי ארטילריה שמתוכננים באיחוד ובנורווגיה השנה. גרמניה, לפי Washington Times מסוף ספטמבר, מבקשת רישיון לייצר מיירטי PAC-3 MSE.",
+          why: "המחסור דוחף מדינות לאמץ ספקים נוספים ולבקש ייצור מקומי, כולל מערכות ישראליות.",
+          impl: "הערכה: הדבר מחזק את הכוח המיקוחי של תעשיות כמו רפאל ו-IAI מול לקוחות אירופיים. הידיעה על השגריר מבוססת על אתר משני; כדאי לאמת מול מקור ראשוני.",
+          sources: [
+            { name: "Times of Defence", url: "https://timesofdefence.com.tr/u-s-defense-industrial-base-depletion-drives-multi-year-precision-munitions-backlog-for-european-nato-allies" },
+            { name: "Kyiv Post", url: "https://kyivpost.com/post/87003" },
+            { name: "Washington Times", url: "https://www.washingtontimes.com/news/2026/sep/29/nato-races-solve-missile-shortage-wars-drain-western-stockpiles/" }
+          ]
+        },
+        {
+          title: "גרמניה: אין התפתחות מהותית חדשה; רקע על Arrow 3 ועל מפעל Osnabrück",
+          countries: ["germany", "israel"],
+          date: "—",
+          status: "none",
+          what: "הסכמי Arrow 3 מגיעים לכ-6.5 מיליארד דולר בשתי עסקאות, והשנייה (כ-3.1 מיליארד דולר) הוכרזה על ידי IAI בינואר. בתחילת ספטמבר נחתם מכתב כוונות בין מדינת סקסוניה התחתית, רפאל וקרן Aurelius לרכישת מפעל Volkswagen באוסנבריק, שבו ייוצרו רכיבי Iron Dome (משאיות, משגרים וגנרטורים, ללא טילי Tamir). הייצור צפוי להתחיל ב-2027, וגרמניה טרם הכריזה על רכש של Iron Dome.",
+          sources: [
+            { name: "European Security & Defence", url: "https://euro-sd.com/2026/01/major-news/48423/germanys-arrow-3-buy-expands/" },
+            { name: "Ynet", url: "https://www.ynetnews.com/business/article/b1b7tf3uze" },
+            { name: "Jerusalem Post", url: "https://jpost.com/defense-and-tech/article-907805" }
+          ]
+        },
+        {
+          title: "הודו: אין התפתחות מהותית חדשה; מעמדה כשותפה תעשייתית בביקורת",
+          countries: ["india", "israel"],
+          date: "8.10.2026 (רקע)",
+          status: "none",
+          what: "ניתוח של אל-ג׳זירה מ-8 באוקטובר מתאר את התחזקות הקשר עם ישראל, והודו מוזכרת כקונה הנשק הגדול ביותר של ישראל. דוח של אמנסטי, שדווח בג׳רוזלם פוסט, בחן 2,596 משלוחים מהודו לישראל ומצא שחברות הודיות פרטיות וממשלתיות ומיזמים משותפים משולבים בשרשרת האספקה של התעשיות הישראליות. התייחסות רשמית חדשה מצד הודו לא נמצאה.",
+          sources: [
+            { name: "Al Jazeera", url: "https://www.aljazeera.com/news/2026/10/8/how-gaza-war-sped-up-indias-shift-towards-israel-under-modi" },
+            { name: "Jerusalem Post", url: "https://www.jpost.com/defense-and-tech/article-904501" }
+          ]
+        },
+        {
+          title: "אזרבייג׳ן: ARI Arms הישראלית פתחה קו ייצור רובים בבאקו",
+          countries: ["azerbaijan", "israel"],
+          date: "תחילת אוקטובר 2026",
+          status: "preliminary",
+          what: "לפי Globes, בראשית אוקטובר נחנך מפעל לייצור רובי M4 בנוכחות נשיא אזרבייג׳ן. בתערוכת ADEX (30.9–2.10) נחתמו גם הסכמים לרכש מערכות טורקיות, בהן חימוש משוטט של Baykar. הדיווחים בשני האתרים מסתמכים על אותו מקור ראשוני.",
+          why: "אזרבייג׳ן עוברת מרכש לייצור מקומי, ומגוונת ספקים בין ישראל לטורקיה.",
+          impl: "הערכה: המעבר לייצור מקומי מגביל בעתיד את היקף היצוא הישראלי הישיר, אך מעמיק שיתופי ייצור.",
+          sources: [
+            { name: "Jamestown Foundation", url: "https://jamestown.substack.com/p/azerbaijan-expands-defense-industry" },
+            { name: "Il Sole 24 Ore", url: "https://en.ilsole24ore.com/art/azerbaijan-abandons-kalashnikovs-israel-opens-a-weapons-factory-in-baku-AJohoEfB" }
+          ]
+        },
+        {
+          title: "איחוד האמירויות: אין התפתחות מהותית חדשה; רקע על שיתוף הפעולה הביטחוני",
+          countries: ["uae", "israel"],
+          date: "אפריל–מאי 2026 (רקע)",
+          status: "none",
+          what: "לפי Axios ושגריר ארה״ב בישראל, ישראל שלחה סוללות Iron Dome לאמירויות במהלך המלחמה מול איראן. דיווח של FT על שליחת Iron Beam לא אושר באופן עצמאי. לפי Haaretz, ב-2025 הונפקו רישיונות יצוא של הגנה אווירית ל-20 מדינות, לעומת 7 ב-2024.",
+          sources: [
+            { name: "Janes", url: "https://www.janes.com/defence-intelligence-insights/defence-news/weapons/iran-conflict-2026-us-ambassador-says-israel-deployed-iron-dome-to-uae" },
+            { name: "Haaretz", url: "https://www.haaretz.com/israel-news/israel-security/2026-05-07/ty-article-magazine/israel-ramps-up-issuing-of-air-defense-export-licenses-and-not-just-to-the-uae/0000019d-fca9-d46a-addd-fcad86b30000" }
+          ]
+        }
+      ]
+    },
+    {
+      id: "tomorrow",
+      title: "מה לעקוב אחריו מחר",
+      type: "list",
+      items: [
+        { text: "מחר שבת: זרימת חדשות ישראלית דלה, והודעות חברות צפויות בעיקר ממוצאי שבת ומיום ראשון." },
+        { text: "Shield AI: חשיפת אב-טיפוס X-BAT בקנה מידה מלא צפויה עד סוף אוקטובר.", url: "https://theregister.com/offbeat/2026/10/09/us-navy-bets-another-150m-on-fighter-drone-that-skips-the-runway/5302237", linkName: "The Register" },
+        { text: "אישור סופי של הוועדה השרית לרכש (לפי The Defense News) ומו״מ אוצר–ביטחון על 25 מיליארד ש״ח לפני הבחירות.", url: "https://www.calcalistech.com/ctechnews/article/wat55035c", linkName: "כלכליסט" },
+        { text: "צ׳כיה–רפאל: חתימה אפשרית על Spyder ומערכת פיקוד ושליטה.", url: "https://en.globes.co.il/en/article-czech-republic-nears-deal-for-rafaels-spyder-system-1001556934", linkName: "Globes" },
+        { text: "סיכומי AUSA: הודעות על חוזים ושיתופי פעולה בין החברות הישראליות לצבא ארה״ב, ודיווח על ניסויי Sky Sonic אם יפורסמו." },
+        { text: "Anduril: פרטי הצעת הרכש והשפעתה על רכש הצי.", url: "https://www.cnbc.com/2026/10/14/anduril-tender-offer-valuation.html", linkName: "CNBC" }
+      ]
+    }
+  ]
+};
+
+/* ===================== קוד התצוגה (לא נוגעים) ===================== */
+(function () {
+  var FLAGS = { israel: "🇮🇱", usa: "🇺🇸", germany: "🇩🇪", india: "🇮🇳", azerbaijan: "🇦🇿", uae: "🇦🇪", europe: "🇪🇺" };
+  var COUNTRY_NAMES = { all: "הכל", israel: "ישראל", usa: "ארה״ב", germany: "גרמניה", india: "הודו", azerbaijan: "אזרבייג׳ן", uae: "האמירויות", europe: "אירופה" };
+  var STATUS = {
+    verified: { label: "עובדה מאומתת", cls: "b-verified" },
+    company: { label: "הודעת חברה", cls: "b-company" },
+    preliminary: { label: "דיווח ראשוני", cls: "b-preliminary" },
+    estimate: { label: "הערכה", cls: "b-estimate" },
+    none: { label: "אין התפתחות", cls: "b-none" }
+  };
+  var state = { country: "all", q: "", onlyStarred: false };
+  var starred = {};
+
+  function loadStars() {
+    try { starred = JSON.parse(localStorage.getItem("db_stars_" + BRIEF.date) || "{}"); } catch (e) { starred = {}; }
+  }
+  function saveStars() {
+    try { localStorage.setItem("db_stars_" + BRIEF.date, JSON.stringify(starred)); } catch (e) {}
+  }
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function safeUrl(u) { return /^https?:\/\//i.test(u) ? u : "#"; }
+
+  var allItems = [];
+  BRIEF.sections.forEach(function (sec, si) {
+    (sec.items || []).forEach(function (it, ii) {
+      it._id = sec.id + "-" + ii;
+      it._sec = sec.id;
+      allItems.push(it);
+    });
+  });
+
+  function itemText(it) {
+    return [it.title, it.what, it.why, it.impl, (it.countries || []).map(function (c) { return COUNTRY_NAMES[c]; }).join(" "),
+      (it.sources || []).map(function (s) { return s.name; }).join(" ")].join(" ").toLowerCase();
+  }
+
+  function cardHTML(it) {
+    var st = STATUS[it.status] || STATUS.estimate;
+    var flags = (it.countries || []).map(function (c) { return FLAGS[c] || ""; }).join("");
+    var isStar = !!starred[it._id];
+    var html = '<article class="card' + (it.status === "none" ? " none" : "") + '" data-id="' + esc(it._id) + '">';
+    html += '<div class="row"><div class="badges"><span class="badge ' + st.cls + '">' + st.label + '</span>' +
+      (flags ? '<span class="flags" aria-hidden="true">' + flags + '</span>' : "") +
+      (it.date && it.date !== "—" ? '<span class="date">' + esc(it.date) + '</span>' : "") + '</div>' +
+      '<button class="star" data-star="' + esc(it._id) + '" aria-pressed="' + isStar + '" aria-label="שמירה למועדפים">' + (isStar ? "★" : "☆") + '</button></div>';
+    html += '<h4>' + esc(it.title) + '</h4>';
+    if (it.what) html += '<p class="field"><b>מה קרה: </b>' + esc(it.what) + '</p>';
+    if (it.why) html += '<p class="field"><b>למה זה חשוב: </b>' + esc(it.why) + '</p>';
+    if (it.impl) html += '<p class="field impl"><b>השלכה אפשרית: </b>' + esc(it.impl) + '</p>';
+    if (it.sources && it.sources.length) {
+      html += '<div class="sources"><span class="lbl">מקורות:</span>' +
+        it.sources.map(function (s) { return '<a href="' + esc(safeUrl(s.url)) + '" target="_blank" rel="noopener noreferrer">' + esc(s.name) + '</a>'; }).join("") + '</div>';
+    }
+    return html + '</article>';
+  }
+
+  var activeSection = null;
+  function shortSummary(sec) {
+    var items = (sec.items || []).filter(function(it){ return it.status !== "none"; });
+    if (!items.length) return "לא אותרה התפתחות מהותית חדשה; נכלל רקע תמציתי למעקב.";
+    return items.slice(0,2).map(function(it){ return it.title || ""; }).join(". ") + (items.length ? "." : "");
+  }
+  function renderHomeSummaries() {
+    var topics = BRIEF.sections.filter(function(sec){ return sec.id !== "top5" && sec.type !== "list"; });
+    document.getElementById("topicSummaries").innerHTML = topics.map(function(sec){
+      return '<article class="topic-summary"><h3>' + esc(sec.title) + '</h3><p>' + esc(shortSummary(sec)) + '</p><button data-open-topic="' + esc(sec.id) + '">לכל הדיווחים בנושא ←</button></article>';
+    }).join("");
+    document.getElementById("drawerTopics").innerHTML = topics.map(function(sec){
+      return '<button class="topic-link" data-open-topic="' + esc(sec.id) + '">' + esc(sec.title) + '<small>' + (sec.items || []).length + ' פריטים · חיפוש וסינון</small></button>';
+    }).join("");
+  }
+  function render() {
+    var content = document.getElementById("content");
+    var sec = BRIEF.sections.filter(function(s){ return s.id === activeSection; })[0];
+    if (!sec) { content.innerHTML = ""; return; }
+    var html = '<section class="block" id="sec-' + esc(sec.id) + '" data-sec="' + esc(sec.id) + '">';
+    if (sec.type === "list") {
+      html += '<ul class="tomorrow">' + sec.items.map(function(li){ return '<li>' + esc(li.text) + (li.url ? ' <a href="' + esc(safeUrl(li.url)) + '" target="_blank" rel="noopener noreferrer">' + esc(li.linkName || "מקור") + '</a>' : "") + '</li>'; }).join("") + '</ul>';
+    } else { html += '<div class="items">' + (sec.items || []).map(cardHTML).join("") + '</div>'; }
+    html += '</section>';
+    content.innerHTML = html;
+    applyFilters();
+  }
+  function openTopic(id) {
+    activeSection = id;
+    var sec = BRIEF.sections.filter(function(s){ return s.id === id; })[0];
+    if (!sec) return;
+    document.getElementById("homeView").hidden = true;
+    document.getElementById("detailView").hidden = false;
+    document.getElementById("detailTitle").textContent = sec.title;
+    state.country = "all"; state.q = ""; state.onlyStarred = false;
+    document.getElementById("q").value = "";
+    render(); buildChips();
+    closeDrawer();
+    window.scrollTo(0,0);
+  }
+  function goHome() {
+    activeSection = null;
+    document.getElementById("detailView").hidden = true;
+    document.getElementById("homeView").hidden = false;
+    closeDrawer(); window.scrollTo(0,0);
+  }
+  function closeDrawer() {
+    document.getElementById("topicDrawer").hidden = true;
+    document.getElementById("drawerBackdrop").hidden = true;
+    document.getElementById("openDrawer").setAttribute("aria-expanded", "false");
+  }
+
+  function applyFilters() {
+    var q = state.q.trim().toLowerCase();
+    var visible = 0;
+    var filtering = state.country !== "all" || q || state.onlyStarred;
+    allItems.forEach(function(it){
+      var el = document.querySelector('[data-id="' + it._id + '"]');
+      if (!el) return;
+      var ok = it._sec === activeSection;
+      if (ok && state.country !== "all" && (it.countries || []).indexOf(state.country) === -1) ok = false;
+      if (ok && q && itemText(it).indexOf(q) === -1) ok = false;
+      if (ok && state.onlyStarred && !starred[it._id]) ok = false;
+      el.hidden = !ok; if (ok) visible++;
+    });
+    document.getElementById("empty").hidden = visible !== 0;
+    document.getElementById("countNote").textContent = filtering ? ("מוצגות " + visible + " מתוך " + (BRIEF.sections.filter(function(s){return s.id===activeSection;})[0].items || []).length + " ידיעות בנושא") : "";
+    renderDigest();
+  }
+
+  function buildChips() {
+    var used = { all: true };
+    allItems.forEach(function (it) { (it.countries || []).forEach(function (c) { used[c] = true; }); });
+    var order = ["all", "israel", "usa", "germany", "india", "azerbaijan", "uae", "europe"];
+    var box = document.getElementById("countryChips");
+    var html = order.filter(function (c) { return used[c]; }).map(function (c) {
+      return '<button class="chip" data-country="' + c + '" aria-pressed="' + (c === "all") + '">' + (FLAGS[c] ? FLAGS[c] + " " : "") + COUNTRY_NAMES[c] + '</button>';
+    }).join("");
+    html += '<button class="chip" id="starFilter" aria-pressed="false">★ מועדפים</button>';
+    box.innerHTML = html;
+    box.onclick = function (e) {
+      var b = e.target.closest("button");
+      if (!b) return;
+      if (b.id === "starFilter") {
+        state.onlyStarred = !state.onlyStarred;
+        b.setAttribute("aria-pressed", state.onlyStarred);
+      } else if (b.dataset.country) {
+        state.country = b.dataset.country;
+        box.querySelectorAll("[data-country]").forEach(function (x) { x.setAttribute("aria-pressed", x === b); });
+      }
+      applyFilters();
+    };
+  }
+
+  function renderDigest() {
+    var sec = document.getElementById("digest");
+    var list = BRIEF.digest || [];
+    if (!list.length || state.q.trim() || state.onlyStarred) { sec.hidden = true; return; }
+    var items = list.filter(function (d) { return state.country === "all" || (d.countries || []).indexOf(state.country) !== -1; });
+    if (!items.length) { sec.hidden = true; return; }
+    sec.hidden = false;
+    document.getElementById("digestMeta").textContent = items.length + " עדכונים משמעותיים";
+    document.getElementById("digestList").innerHTML = items.map(function (d) {
+      var st = STATUS[d.status] || STATUS.estimate;
+      var flags = (d.countries || []).map(function (c) { return FLAGS[c] || ""; }).join("");
+      return '<li><div class="dtop"><span class="badge ' + st.cls + '">' + st.label + '</span>' +
+        (flags ? '<span class="flags" aria-hidden="true">' + flags + '</span>' : "") + '</div><p>' + esc(d.text) +
+        (d.url ? ' <a class="dlink" href="' + esc(safeUrl(d.url)) + '" target="_blank" rel="noopener noreferrer">' + esc(d.linkName || "מקור") + '</a>' : "") + '</p></li>';
+    }).join("");
+    var note = document.getElementById("digestNote");
+    if (BRIEF.digestNote && state.country === "all") { note.textContent = BRIEF.digestNote; note.hidden = false; } else { note.hidden = true; }
+  }
+
+  function buildNav() { /* הניווט מתבצע דרך המגירה הימנית */ }
+
+  function init() {
+    loadStars();
+    document.getElementById("asOf").textContent = BRIEF.asOf || "";
+    document.getElementById("dateLabel").textContent = BRIEF.dateLabel;
+    document.getElementById("readTime").textContent = "זמן קריאה: כ-" + BRIEF.readingMinutes + " דקות";
+    document.getElementById("headline").textContent = BRIEF.headline;
+    document.getElementById("lead").textContent = BRIEF.lead;
+    document.getElementById("coverage").textContent = BRIEF.coverage;
+    buildNav();
+    renderHomeSummaries();
+    document.getElementById("openDrawer").addEventListener("click", function(){ document.getElementById("topicDrawer").hidden=false; document.getElementById("drawerBackdrop").hidden=false; this.setAttribute("aria-expanded","true"); });
+    document.getElementById("closeDrawer").addEventListener("click", closeDrawer);
+    document.getElementById("drawerBackdrop").addEventListener("click", closeDrawer);
+    document.querySelectorAll("[data-home]").forEach(function(b){ b.addEventListener("click",goHome); });
+    document.getElementById("backHome").addEventListener("click",goHome);
+    document.addEventListener("click", function(e){ var b=e.target.closest("[data-open-topic]"); if(b) openTopic(b.getAttribute("data-open-topic")); });
+    document.getElementById("shareBtn").addEventListener("click", async function(){
+      var shareText = BRIEF.headline + "\n\n" + (BRIEF.digest || []).map(function(d,i){ return (i+1)+". "+d.text; }).join("\n") + "\n\n" + (location.protocol === "http:" || location.protocol === "https:" ? location.href : "");
+      try {
+        if (navigator.share) { await navigator.share({title:"Defense Brief – תדריך יומי", text:shareText, url:(location.protocol === "http:" || location.protocol === "https:" ? location.href : undefined)}); }
+        else if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(shareText); alert("התקציר הועתק. אפשר להדביק ולשתף אותו."); }
+        else { window.prompt("העתק את התקציר כדי לשתף:", shareText); }
+      } catch(err) { if (err && err.name !== "AbortError") window.prompt("אפשר להעתיק ולשתף את התקציר:", shareText); }
+    });
+    buildChips();
+
+    document.getElementById("q").addEventListener("input", function (e) { state.q = e.target.value; applyFilters(); });
+    document.getElementById("content").addEventListener("click", function (e) {
+      var b = e.target.closest("[data-star]");
+      if (!b) return;
+      var id = b.getAttribute("data-star");
+      if (starred[id]) delete starred[id]; else starred[id] = 1;
+      saveStars();
+      var on = !!starred[id];
+      b.setAttribute("aria-pressed", on);
+      b.textContent = on ? "★" : "☆";
+      applyFilters();
+    });
+
+    try {
+      var todayIL = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Jerusalem" });
+      if (todayIL !== BRIEF.date) {
+        var s = document.getElementById("stale");
+        s.textContent = "שים לב: התדריך האחרון הוא מתאריך " + BRIEF.dateLabel + ". התדריך של היום טרם הועלה.";
+        s.hidden = false;
+      }
+    } catch (e) {}
+  }
+  init();
+})();
+</script>
+
+</body></html>
